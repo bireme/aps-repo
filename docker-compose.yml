@@ -13,8 +13,9 @@ services:
       - WORDPRESS_DB_NAME=${MYSQL_DB}
     volumes:
       - ./conf/php:/usr/local/etc/php-fpm.d
-      - ./plugins:/var/www/html/wp-content/plugins
       - wordpress:/var/www/html
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
     deploy:
       resources:
         limits:
@@ -34,10 +35,11 @@ services:
     expose:
       - 80
     volumes:
-      - wordpress:/var/www/html
-      - ./plugins:/var/www/html/wp-content/plugins
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ${LOG_PATH}:/var/log/nginx
+      - wordpress:/var/www/html
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}

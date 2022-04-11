@@ -27,6 +27,7 @@ dev_shell:
 	@docker-compose -f $(COMPOSE_FILE_DEV) exec aps_wordpress sh
 
 
+
 build:
 	@docker-compose -f $(COMPOSE_FILE) build
 
@@ -47,3 +48,14 @@ ps:
 
 shell:
 	@docker-compose -f $(COMPOSE_FILE) exec aps_wordpress sh
+
+
+theme_clone:
+	git clone --no-checkout https://github.com/bireme/wordpress-themes.git themes
+	cd themes \
+	git sparse-checkout init --cone && \
+	git sparse-checkout set bvs-aps
+
+theme_update:
+	cd themes \
+	git pull
