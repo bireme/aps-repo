@@ -57,5 +57,4 @@ theme_clone:
 	git sparse-checkout set bvs-aps
 
 theme_update:
-	cd themes \
-	git pull
+	cd themes && git pull
