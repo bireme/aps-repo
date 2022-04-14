@@ -30,6 +30,7 @@ services:
       - ./conf/php:/usr/local/etc/php-fpm.d
       - wordpress:/var/www/html
       - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
+      - phpsock:/var/run
     networks:
       - nginx-proxy
 
@@ -46,6 +47,7 @@ services:
       - wordpress:/var/www/html
       - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
       - ${LOG_PATH}:/var/log/nginx
+      - phpsock:/var/run
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
     networks:
@@ -53,6 +55,7 @@ services:
 
 
 volumes:
+  phpsock:
   wordpress:
   dbdata:
 

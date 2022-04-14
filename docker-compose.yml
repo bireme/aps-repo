@@ -16,6 +16,7 @@ services:
       - wordpress:/var/www/html
       - ./plugins:/var/www/html/wp-content/plugins
       - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
+      - phpsock:/var/run
     deploy:
       resources:
         limits:
@@ -40,6 +41,7 @@ services:
       - wordpress:/var/www/html
       - ./plugins:/var/www/html/wp-content/plugins
       - ./themes/bvs-aps:/var/www/html/wp-content/themes/bvs-aps
+      - phpsock:/var/run
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}
@@ -55,6 +57,7 @@ services:
 
 
 volumes:
+  phpsock:
   wordpress:
 
 networks:
