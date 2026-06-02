@@ -3,51 +3,53 @@ default: build
 COMPOSE_FILE = docker-compose.yml
 COMPOSE_FILE_DEV = docker-compose-dev.yml
 
+# Use 'docker compose' if available (Docker 20.10+), otherwise fall back to 'docker-compose'
+DOCKER_COMPOSE := $(shell if docker compose version >/dev/null 2>&1; then echo "docker compose"; elif command -v docker-compose >/dev/null 2>&1; then echo "docker-compose"; else echo "docker compose"; fi)
 
-## docker-compose shortcuts
+# dev
 dev_build:
-	@docker-compose -f $(COMPOSE_FILE_DEV) build
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) build
 
 dev_run:
-	@docker-compose -f $(COMPOSE_FILE_DEV) up
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) up
 
 dev_up:
-	@docker-compose -f $(COMPOSE_FILE_DEV) up -d
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) up -d
 
 dev_logs:
-	@docker-compose -f $(COMPOSE_FILE_DEV) logs -f
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) logs -f
 
 dev_stop:
-	@docker-compose -f $(COMPOSE_FILE_DEV) stop
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) stop
 
 dev_ps:
-	@docker-compose -f $(COMPOSE_FILE_DEV) ps
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) ps
 
 dev_shell:
-	@docker-compose -f $(COMPOSE_FILE_DEV) exec aps_wordpress sh
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE_DEV) exec aps_wordpress sh
 
 
-
+# production
 build:
-	@docker-compose -f $(COMPOSE_FILE) build
+	@$(DOCKER_COMPOSE) build
 
 run:
-	@docker-compose -f $(COMPOSE_FILE) up
+	@$(DOCKER_COMPOSE) up
 
 up:
-	@docker-compose -f $(COMPOSE_FILE) up -d
+	@$(DOCKER_COMPOSE) up -d
 
 logs:
-	@docker-compose -f $(COMPOSE_FILE) logs -f
+	@$(DOCKER_COMPOSE) logs -f
 
 stop:
-	@docker-compose -f $(COMPOSE_FILE) stop
+	@$(DOCKER_COMPOSE) stop
 
 ps:
-	@docker-compose -f $(COMPOSE_FILE) ps
+	@$(DOCKER_COMPOSE) ps
 
 shell:
-	@docker-compose -f $(COMPOSE_FILE) exec aps_wordpress sh
+	@$(DOCKER_COMPOSE) exec aps_wordpress sh
 
 
 theme_clone:

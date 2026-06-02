@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   aps_wordpress:
     image: wordpress:5.9-php8.1-fpm-alpine
@@ -55,11 +53,10 @@ services:
     networks:
       - nginx-proxy
 
-
 volumes:
   phpsock:
   wordpress:
 
 networks:
   nginx-proxy:
-      external: true
+    external: true
